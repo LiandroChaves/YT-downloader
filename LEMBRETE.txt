@@ -1,1 +1,5 @@
 colocar ffmpeg bin em 'ffmpeg_location': r'C:\ffmpeg-8.0.1-full_build\bin\ffmpeg.exe'
+baixar ffmpeg em https://www.gyan.dev/ffmpeg/builds/ versão: ffmpeg-release-essentials.zip
+
+extrair o zip em C:\ffmpeg-8.0.1-full_build
+colocar exe na mesma pasta
