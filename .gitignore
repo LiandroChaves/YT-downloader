@@ -1,10 +1,17 @@
+# ignora tudo dentro de Downloads_Youtube
 Downloads_Youtube/*
 
+# mas permite a pasta Arquivos_Soltos existir
 !Downloads_Youtube/Arquivos_Soltos/
 
+# ignora tudo dentro dela
 Downloads_Youtube/Arquivos_Soltos/*
 
-ffmpeg.exe
-*.exe
+# permite apenas os arquivos "fantasma"
+!Downloads_Youtube/.gitkeep
+!Downloads_Youtube/Arquivos_Soltos/.gitkeep
 
+# outros ignores
+*.exe
 *.zip
+ffmpeg.exe
