@@ -9,9 +9,9 @@ import sys
 import io
 from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
-# --- FIX DE CONSOLE ---
-if sys.stdout is None: sys.stdout = io.StringIO()
-if sys.stderr is None: sys.stderr = io.StringIO()
+# # --- FIX DE CONSOLE ---
+# if sys.stdout is None: sys.stdout = io.StringIO()
+# if sys.stderr is None: sys.stderr = io.StringIO()
 
 # --- Globais ---
 input_resultado = [None]
@@ -257,15 +257,22 @@ def processar_download(url_original):
                                 p = (baixado / total) * 100
                                 root.after(0, lambda: progress_bar.configure(value=p))
                         except: pass
-                
+                ffmpeg_path = r'C:\ffmpeg-8.0.1-full_build\bin'
+
                 ydl_opts_down = {
                     'outtmpl': f'{path_final}/%(title)s.%(ext)s',
-                    'restrictfilenames': True, 'ignoreerrors': True, 'quiet': True, 'no_warnings': True,
+                    'restrictfilenames': True, 
+                    'ignoreerrors': True, 
+                    'quiet': False, 
+                    'no_warnings': False,
                     'progress_hooks': [progress_hook],
-                    'ffmpeg_location': r'C:\ffmpeg-8.0.1-full_build\bin\ffmpeg.exe'
+                    'ffmpeg_location': ffmpeg_path,
+                    # Adiciona essa linha aqui embaixo pra usar o node:
+                    'js_runtime': 'node', 
                 }
 
                 if tipo == 'audio':
+                    # Configuração braba pra extrair só o áudio e converter pra MP3
                     ydl_opts_down.update({
                         'format': 'bestaudio/best',
                         'postprocessors': [{
@@ -275,11 +282,14 @@ def processar_download(url_original):
                         }],
                     })
                 else:
-                    ydl_opts_down.update({'format': 'bv*+ba/best', 'merge_output_format': 'mp4', 'postprocessors': [{'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}]})
-
+                    # Configuração pra vídeo com áudio (mescla o melhor de cada)
+                    ydl_opts_down.update({
+                        'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
+                        'merge_output_format': 'mp4',
+                    })
                 with yt_dlp.YoutubeDL(ydl_opts_down) as ydl:
                     ydl.download([video_url])
-            
+
             except (DownloadError, Exception) as e:
                 if "Cancelado" in str(e) or stop_requested:
                     root.after(0, lambda: status_label.configure(text="🛑 Parando fila..."))

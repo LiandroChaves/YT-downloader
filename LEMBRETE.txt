@@ -3,3 +3,5 @@ baixar ffmpeg em https://www.gyan.dev/ffmpeg/builds/ versão: ffmpeg-release-ess
 
 extrair o zip em C:\ffmpeg-8.0.1-full_build
 colocar exe na mesma pasta
+
+ter node instalado
