@@ -1,0 +1,1 @@
+colocar ffmpeg bin em 'ffmpeg_location': r'C:\ffmpeg-8.0.1-full_build\bin\ffmpeg.exe'

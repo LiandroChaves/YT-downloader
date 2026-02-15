@@ -1,0 +1,10 @@
+Downloads_Youtube/*
+
+!Downloads_Youtube/Arquivos_Soltos/
+
+Downloads_Youtube/Arquivos_Soltos/*
+
+ffmpeg.exe
+*.exe
+
+*.zip
